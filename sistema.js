@@ -14,6 +14,22 @@ class Sistema {
     adicionarUsuario(usuario) {
         this.usuarios.push(usuario);
     }
+
+    ordenarEventosPorProximidade() {
+        this.eventos.sort((eventoA, eventoB) => {
+            const diffA = Math.abs(eventoA.horario - momento);
+            const diffB = Math.abs(eventoB.horario - momento);
+            return diffA - diffB;
+        });
+    }
+    
+    imprimirEventosOrdenadosPorProximidade() {
+        this.ordenarEventosPorProximidade();
+        this.eventos.forEach(evento => {
+            console.log(`Nome: ${evento.nome} | Horário: ${evento.horario}`);
+        });
+    }
+    
 }
 
 class Evento {
@@ -68,7 +84,6 @@ class Usuario {
             }
         });
     }
-    
 }
 
 const sistema = new Sistema();
@@ -82,4 +97,6 @@ usuario.participarEvento('Faculdade', sistema);
 usuario.participarEvento('jogo do vitoria', sistema)
 usuario.consultarEventos();
 usuario.consultarHorarioEventos();
+sistema.ordenarEventosPorProximidade();
+sistema.imprimirEventosOrdenadosPorProximidade();
 
